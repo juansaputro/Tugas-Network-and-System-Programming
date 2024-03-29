@@ -46,11 +46,11 @@ func HandleServerConnection(client net.Conn) {
 		reply = "Message Has Been Received"
 	}
 
-	binary.Write(client, binary.LittleEndian, uint32(len(reply)))
+	err = binary.Write(client, binary.LittleEndian, uint32(len(reply)))
 	if err != nil {
 		panic(err)
 	}
-	client.Write([]byte(reply))
+	_, err = client.Write([]byte(reply))
 	if err != nil {
 		panic(err)
 	}
