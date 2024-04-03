@@ -70,6 +70,7 @@ func sendMessageToServer(message string) {
 		panic(err)
 	}
 	bytReply := make([]byte, size)
+	serverConn.SetReadDeadline(time.Now().Add(10 * time.Second))
 	_, err = serverConn.Read(bytReply)
 	if err != nil {
 		panic(err)
