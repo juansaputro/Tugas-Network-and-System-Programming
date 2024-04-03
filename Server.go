@@ -30,6 +30,7 @@ func HandleServerConnection(client net.Conn) {
 		panic(err)
 	}
 	bytMsg := make([]byte, size)
+	client.SetReadDeadline(time.Now().Add(10 * time.Second))
 	_, err = client.Read(bytMsg)
 	if err != nil {
 		panic(err)
@@ -50,6 +51,7 @@ func HandleServerConnection(client net.Conn) {
 	if err != nil {
 		panic(err)
 	}
+	client.SetWriteDeadline(time.Now().Add(10 * time.Second))
 	_, err = client.Write([]byte(reply))
 	if err != nil {
 		panic(err)
